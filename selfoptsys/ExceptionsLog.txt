@@ -1,0 +1,8 @@
+Tue Jul 20 14:49:26 EDT 2010 
+ANonBlockingTCPListeningThread: Error in run
+Exception: Connection reset
+java.net.SocketException: Connection reset
+	at java.net.SocketInputStream.read(SocketInputStream.java:168)
+	at selfoptsys.comm.ANonBlockingTCPListeningThread.run(ANonBlockingTCPListeningThread.java:38)
+
+

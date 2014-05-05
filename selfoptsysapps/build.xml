@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<project name="selfoptsysapps" default="main" basedir=".">
+
+	<!-- Sets variables which can later be used. -->
+	<!-- The value of a property is accessed via ${} -->
+	<property name="jar.name" value="selfoptsysapps.jar" />
+	<property name="src.dir" location="src" />
+	<property name="bin.dir" location="bin" />
+	<property name="dist.dir" location="..\..\dist" />
+	<property name="lib.dir" location="..\..\lib" />
+
+	<!-- Deletes the existing bin directory -->
+	<target name="clean">
+		<delete dir="${bin.dir}" />
+		<delete file="${dist.dir}\${jar.name}" />
+	</target>
+
+	<!-- Creates the bin directory-->
+	<target name="makedir">
+		<mkdir dir="${bin.dir}" />
+	</target>
+
+	<!-- Create a classpath container which can be later used in the ant task -->
+	<path id="build.classpath">
+		<fileset dir="c:\program files (x86)\j-integra\com\lib">
+			<include name="jintegra.jar" />
+		</fileset>
+		<fileset dir="${lib.dir}">
+			<include name="oeall_selfoptsys.jar" />
+			<include name="powerpoint.jar" />
+		</fileset>
+		<fileset dir="${dist.dir}">
+			<include name="winsyslib.jar" />
+			<include name="commonutils.jar" />
+			<include name="selfoptsys.jar" />
+		</fileset>
+	</path>
+	
+	<!-- Compiles the java code (including the usage of library for JUnit -->
+	<target name="compile" depends="clean, makedir">
+		<javac srcdir="${src.dir}" destdir="${bin.dir}" classpathref="build.classpath" />
+	</target>
+
+	<!--Creates the deployable jar file  -->
+	<target name="jar" depends="compile">
+		<jar destfile="${dist.dir}\${jar.name}" basedir="${bin.dir}" />
+	</target>
+
+	<target name="main" depends="compile, jar" />
+
+</project>
